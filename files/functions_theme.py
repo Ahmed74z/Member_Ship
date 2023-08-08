@@ -83,25 +83,25 @@ def frame_theme_pick(theme_l):
     return theme
 
 
-def theme_change(theme, frames: Frame, widgets: Widget):
+def theme_change(theme, frames, widgets):
+
     theme_widget = widget_theme_pick(theme_l=theme)
     theme_frame = frame_theme_pick(theme_l=theme)
-    
-    frames[0].configure(background=theme_frame['main'])
-    frames[1].configure(background=theme_frame['side'])
-    frames[2].configure(background=theme_frame['header'])
-    frames[3].configure(background=theme_frame['header'])
-
-
-    for widget in widgets:
-        if widget.widgetName == 'label':
-            widget.configure(background=theme_widget['bg_label'], foreground=theme_widget['color'])
-        elif widget.widgetName == 'button' or widget.widgetName == 'tk_optionMenu':
-            widget.configure(background=theme_widget['bg_button'], foreground=theme_widget['color'])
-        elif widget.widgetName == 'radiobutton':
-            widget.configure(background=theme_widget['bg_button_side'])
-        else:
-            widget.configure(background=theme_widget['bg_label'], foreground=theme_widget['color'])
-
-
+    try:
+        for frame in frames:
+            frame.configure(background=theme_frame['main'])
+    except:
+        print('error at theme_change_main')
+    try:
+        for widget in widgets:
+            if widget.widgetName == 'label':
+                widget.configure(background=theme_widget['bg_label'], foreground=theme_widget['color'])
+            elif widget.widgetName == 'button':
+                widget.configure(background=theme_widget['bg_button'], foreground=theme_widget['color'])
+            elif widget.widgetName == 'radiobutton':
+                widget.configure(background=theme_widget['bg_button_side'], foreground=theme_widget['color'])
+            elif widget.widgetName == 'text':
+                widget.configure(background=theme_widget['text_box'])
+    except:
+        print('error at theme_change_main')
 

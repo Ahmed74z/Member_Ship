@@ -11,25 +11,32 @@ def home_call(main):
     gender_var.set('Male')
     state_var = StringVar()
 
+    # Member Addition Function
     def member_add():
-
+        # Add the member to the database
         data = [
-            fname_add_entry.get(), lname_add_entry.get(),
-            int(age_add_entry.get()), gender_var.get(),
-            sub_add_entry.get(), 'Subscribed'
+            fname_add_entry.get(), 
+            lname_add_entry.get(),
+            int(age_add_entry.get()), # TODO 
+            gender_var.get(), 
+            sub_add_entry.get(), 
+            'Subscribed'
         ]
         fname_add_entry.delete(0, 'end')
         lname_add_entry.delete(0, 'end')
         age_add_entry.delete(0, 'end')
         sub_add_entry.delete(0, 'end')
-        member_addition(data)
+        if data:
+            member_addition(data)
 
-        text_box.config(state='normal')
-        text_box.delete("1.0", 'end')
-        text_box.insert("1.0", 'Addition Done!')
-        text_box.config(state='disabled')
+        if data:
+            text_box.config(state='normal')
+            text_box.delete("1.0", 'end')
+            text_box.insert("1.0", 'Addition Done!')
+            text_box.config(state='disabled')
 
     def member_del():
+        # Member Deletion From the database
         info = [
             fname_del_entry.get(),
             lname_del_entry.get()
@@ -38,10 +45,11 @@ def home_call(main):
         lname_del_entry.delete(0, 'end')
         member_deletion(info)
 
-        text_box.config(state='normal')
-        text_box.delete("1.0", 'end')
-        text_box.insert("1.0", 'Deletion Done!')
-        text_box.config(state='disabled')
+        if info:
+            text_box.config(state='normal')
+            text_box.delete("1.0", 'end')
+            text_box.insert("1.0", 'Deletion Done!')
+            text_box.config(state='disabled')
 
     def edit_show():
         info = [
@@ -49,25 +57,31 @@ def home_call(main):
             lname_edit_entry.get()
         ]
         data = member_edit_show(info)
-        sub_state.config(state='normal')
-        unsub_state.config(state='normal')
-        state_var.set('Subscribed')
-        save_edit_button.config(state='normal')
-        show_edit_button.config(state='disabled')
+        if data:
+            state_var.set('Subscribed')
+            show_edit_button.config(state='disabled')
+            save_edit_button.config(state='normal')
+            sub_state.config(state='normal')
+            unsub_state.config(state='normal')
 
         fname_edit_entry.delete(0, 'end')
         lname_edit_entry.delete(0, 'end')
+        age_edit_entry.delete(0, 'end')
+        sub_edit_entry.delete(0, 'end')
 
-        fname_edit_entry.insert(0, data[1])
-        lname_edit_entry.insert(0, data[2])
+        if data:
+            fname_edit_entry.config(state='disabled')
+            lname_edit_entry.config(state='disabled')
 
-        fname_edit_entry.config(state='disabled')
-        lname_edit_entry.config(state='disabled')
+        if data:
+            fname_edit_entry.insert(0, data[1])
+            lname_edit_entry.insert(0, data[2])
+            age_edit_entry.insert(0, data[3])
+            sub_edit_entry.insert(0, data[5])
 
-        age_edit_entry.insert(0, data[3])
-        sub_edit_entry.insert(0, data[5])
-
-        text = f'ID: {data[0]}\nFirst Name: {data[1]}\nLast Name: {data[2]}\nAge: {data[3]}\nGender: {data[4]}\nSubscription: {data[5]}\nRegistration Time: {data[6]}\nState: {data[7]}'
+        text = ''
+        if data:
+            text = f'ID: {data[0]}\nFirst Name: {data[1]}\nLast Name: {data[2]}\nAge: {data[3]}\nGender: {data[4]}\nSubscription: {data[5]}\nRegistration Time: {data[6]}\nState: {data[7]}'
 
         text_box.config(state='normal')
         text_box.delete("1.0", 'end')
@@ -103,6 +117,18 @@ def home_call(main):
             lname_chk_entry.get()
         ]
         data = member_check(info)
+        if data:
+            text = 'Found'
+            text_box.config(state='normal')
+            text_box.delete("1.0", 'end')
+            text_box.insert("1.0", text)
+            text_box.config(state='disabled')
+        else:
+            text = 'Not Found'
+            text_box.config(state='normal')
+            text_box.delete("1.0", 'end')
+            text_box.insert("1.0", text)
+            text_box.config(state='disabled')
 
     theme_frame = frame_theme_pick(const.PRISMARINE)
     theme_widget = widget_theme_pick(const.PRISMARINE)
@@ -238,30 +264,4 @@ def home_call(main):
                             save_edit_button, fname_chk_label, lname_chk_label, chk_button, text_box]
 
     return [All_frames_mainpage, All_widgets_mainpage]
-
-
-def theme_change_main(theme, frames, widgets):
-
-    theme_widget = widget_theme_pick(theme_l=theme)
-    theme_frame = frame_theme_pick(theme_l=theme)
-    try:
-        for frame in frames:
-            frame.configure(background=theme_frame['main'])
-    except:
-        print('error at theme_change_main')
-    try:
-        for widget in widgets:
-            if widget.widgetName == 'label':
-                widget.configure(background=theme_widget['bg_label'], foreground=theme_widget['color'])
-            elif widget.widgetName == 'button':
-                widget.configure(background=theme_widget['bg_button'], foreground=theme_widget['color'])
-            elif widget.widgetName == 'radiobutton':
-                widget.configure(background=theme_widget['bg_button_side'], foreground=theme_widget['color'])
-            elif widget.widgetName == 'text':
-                widget.configure(background=theme_widget['text_box'])
-    except:
-        print('error at theme_change_main')
-
-
-
 

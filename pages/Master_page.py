@@ -20,7 +20,7 @@ global tree
 def master_call(main):
     master_label = Label(main, text='Master Code', relief='flat')
     master_entry = Entry(main)
-    master_button = Button(main, text='Unlock', command= lambda: admin_lock(master_entry.get(), main))
+    master_button = Button(main, text='Unlock', command=lambda: admin_lock(master_entry.get(), main))
 
     master_label.place(x=5, y=5, width=120, height=26)
     master_label.config(font=('Arial', 11), relief='flat')

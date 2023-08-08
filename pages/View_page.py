@@ -2,7 +2,10 @@ from tkinter import *
 from tkinter import ttk
 from sqlite3 import *
 import random
-from files.Functions import *
+if __name__ == '__main__':
+    from Member_Ship.files.Functions import *
+else:
+    from files.Functions import *
 
 global tree
 

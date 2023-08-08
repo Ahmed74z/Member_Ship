@@ -83,7 +83,7 @@ def member_deletion(info):
         print(e)
 
     try:
-        cursor.execute(f'''delete from members where fname="{info[0]}" and lname="{info[1]}"''')
+        cursor.execute(f'''delete from members where fname="{info[0].title().strip()}" and lname="{info[1].title().strip()}"''')
         db.commit()
         db.close()
     except Error as e:
@@ -113,8 +113,8 @@ def member_edit_save(info):
     except Error as e:
         print(e)
     try:
-        cursor.execute(f'''update members set  age="{info[2]}", sub="{info[3].title()}", state="{info[4].title()}" 
-                        where fname ="{info[0].title()}" and lname="{info[1].title()}" ''')
+        cursor.execute(f'''update members set  age="{info[2]}", sub="{info[3].title().strip()}", state="{info[4].title().title().strip()}" 
+                        where fname ="{info[0].title().title().strip()}" and lname="{info[1].title().title().strip()}" ''')
         db.commit()
         db.close()
     except Error as e:
@@ -125,7 +125,7 @@ def member_check(info):
     try:
         db = connect(r'C:\Users\scorb\OneDrive\Documents\GitHub\Member_Ship\data\members.db')
         cursor = db.cursor()
-        cursor.execute(f'select * from members where fname = "{info[0]}" and lname = "{info[1]}" ')
+        cursor.execute(f'select * from members where fname = "{info[0].title().strip()}" and lname = "{info[1].title().strip()}" ')
         data = cursor.fetchone()
     except Error as e:
         print(e)
@@ -190,3 +190,8 @@ def admin_sign(info):
         print(f'error: {e}')
 
     return auth
+
+def if_true_return(inp):
+    if inp:
+        return inp
+    
