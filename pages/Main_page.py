@@ -17,7 +17,7 @@ def home_call(main):
         data = [
             fname_add_entry.get(), 
             lname_add_entry.get(),
-            int(age_add_entry.get()), # TODO 
+            int(age_add_entry.get()),  
             gender_var.get(), 
             sub_add_entry.get(), 
             'Subscribed'
@@ -129,9 +129,6 @@ def home_call(main):
             text_box.delete("1.0", 'end')
             text_box.insert("1.0", text)
             text_box.config(state='disabled')
-
-    theme_frame = frame_theme_pick(const.PRISMARINE)
-    theme_widget = widget_theme_pick(const.PRISMARINE)
 
     #############################################
     # Add Frame

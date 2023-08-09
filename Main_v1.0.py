@@ -1,4 +1,4 @@
-from files import functions_theme as func
+import files.functions_theme as func
 import constants as const
 from files.Functions import *
 from tkinter import *
@@ -91,6 +91,7 @@ def main_load():
         widget.destroy()
 
     all_mainpage = Main.home_call(main_frame)
+    unlock_button = all_mainpage[0]
     days_menu.config(state='disabled')
     months_menu.config(state='disabled')
     year.config(state='disabled')
@@ -145,7 +146,7 @@ def master_load():
     for widget in main_frame.winfo_children():
         widget.destroy()
 
-    all_wid = Master.master_call(main_frame)
+    all_wid = Master.master_call(main_frame, theme_l=theme_name.get())
 
     days_menu.config(state='disabled')
     months_menu.config(state='disabled')

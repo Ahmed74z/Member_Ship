@@ -102,6 +102,6 @@ def theme_change(theme, frames, widgets):
                 widget.configure(background=theme_widget['bg_button_side'], foreground=theme_widget['color'])
             elif widget.widgetName == 'text':
                 widget.configure(background=theme_widget['text_box'])
-    except:
+    except :
         print('error at theme_change_main')
 
